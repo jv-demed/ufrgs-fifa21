@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useState } from 'react';
 import { csvToHashTable } from '../scripts/csvScripts';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { InputCsv } from './InputCsv';
@@ -41,15 +40,17 @@ const LoadFilesStyled = styled.section`
 `
 
 export function LoadFiles({ 
+    isLoading,
+    setIsLoading,
+    time,
+    setTime,
     playerTable,
     setPlayerTable,
     ratingTable,
     setRatingTable,
+    tagTable,
+    setTagTable
 }){
-
-    const [isLoading, setIsLoading] = useState(false);
-    const [time, setTime] = useState(0);
-
     return(
         <LoadFilesStyled>
             <div className='inputs flexR'>
@@ -69,6 +70,10 @@ export function LoadFiles({
                 />
                 <InputCsv 
                     name='Anotações'
+                    table={tagTable}
+                    setData={(file) => {
+                        csvToHashTable('Anotações', file, setTagTable, setIsLoading, setTime);
+                    }}
                 />
             </div>
             <div className='load flexR'>

@@ -1,5 +1,4 @@
 import { murmurHash3 } from './murmurHash3';
-import { Trie } from './trie';
 
 export class HashTable{
 
@@ -64,21 +63,6 @@ export class HashTable{
         }
     }
 
-    createTrie(prefix){
-        const trie = new Trie();
-        for(let i = 0; i < this.size; i++) {
-            if(this.table[i]){
-                for(const item of this.table[i]){
-                    const playerName = item.value[0];
-                    if(playerName.includes(prefix)){
-                        trie.insert(playerName, item.value);
-                    }
-                }
-            }
-        }
-        return trie;
-    }
-
     searchByName(substring){
         const matchingPlayers = [];
         this.forEach((key, value) => {
@@ -88,6 +72,27 @@ export class HashTable{
             }
         });
         return matchingPlayers;
+    }
+
+    searchByPosition(substring){
+        const matchingPlayers = [];
+        this.forEach((key, value) => {
+            const playerPosition = value[2];
+            if(playerPosition.includes(substring)){
+                matchingPlayers.push(value);
+            }
+        });
+        return matchingPlayers;
+    }
+
+    containsTag(key, tag){
+        const tagList = this.get(key);
+        for(const playerTag of tagList){
+            if(playerTag[1] == tag){
+                return true;
+            }
+        }
+        return false; 
     }
 
 }

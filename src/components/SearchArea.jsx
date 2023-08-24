@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { InputText } from './InputText';
 import { Button } from './Button';
-import { runSearch, searchPlayers } from '../scripts/searchScripts';
+import { runSearch, searchPlayers, searchTags, searchTops, searchUsers } from '../scripts/searchScripts';
 import { Table } from './Table';
 
 const SearchAreaStyled = styled.section`
@@ -20,7 +20,7 @@ const SearchAreaStyled = styled.section`
     }
 `
 
-export function SearchArea({ playerTable }){
+export function SearchArea({ playerTable, userTable, tagTable }){
 
     const [search, setSearch] = useState('');
     const [result, setResult] = useState({});
@@ -33,6 +33,12 @@ export function SearchArea({ playerTable }){
                     const [prefix, data] = runSearch(search);
                     if(prefix == 'player'){
                         setResult(searchPlayers(playerTable, data));
+                    }else if(prefix == 'user'){
+                        setResult(searchUsers(userTable, data));
+                    }else if(prefix[0] == 'top'){
+                        setResult(searchTops(playerTable, prefix[1], data));
+                    }else if(prefix == 'tags'){
+                        setResult(searchTags(playerTable, tagTable, data));
                     }
                 }}
             >

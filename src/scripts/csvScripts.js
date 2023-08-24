@@ -11,7 +11,7 @@ export function csvToHashTable(name, file, setTable, setIsLoading, setTime){
             const values = getValues(line);
             if(name == 'Jogadores'){
                 table.insert(values[0], [values[1], values[2]]);
-            }else if(name == 'Avaliações'){
+            }else if(name == 'Avaliações' || name == 'Anotações'){
                 const key = values[1];
                 if(table.contains(key)){
                     const existingValues = table.get(key);
