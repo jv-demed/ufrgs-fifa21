@@ -44,6 +44,7 @@ export default function Home(){
             />
             <SearchArea 
                 playerTable={searchPlayerTable}
+                ratingTable={ratingTable}
                 userTable={searchUserTable}
                 tagTable={tagTable}
             />

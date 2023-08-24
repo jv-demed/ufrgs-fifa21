@@ -23,7 +23,7 @@ export function searchPlayers(table, data){
 }
 
 export function searchUsers(table, data){
-    const result = table.get(data);
+    const result = table.get(data) || [];
     const ordened = quickSort(result, 4);
     const limited = ordened.slice(0, 20);
     return {
@@ -32,13 +32,15 @@ export function searchUsers(table, data){
     };
 }
 
-export function searchTops(table, num, data){
+export function searchTops(table, num, data, flag){
     const cleaned = data.replace(/'/g, '');
     const result = table.searchByPosition(cleaned);
     const matchingPlayers = [];
     for(const player of result){
-        if(player[4] >= 1000){
+        if(player[4] >= 1000 || flag < 1000000){
             matchingPlayers.push(player);
+        }else{
+
         }
     }
     const ordened = quickSort(matchingPlayers, 3);

@@ -20,7 +20,12 @@ const SearchAreaStyled = styled.section`
     }
 `
 
-export function SearchArea({ playerTable, userTable, tagTable }){
+export function SearchArea({ 
+    playerTable, 
+    ratingTable,
+    userTable, 
+    tagTable 
+}){
 
     const [search, setSearch] = useState('');
     const [result, setResult] = useState({});
@@ -36,7 +41,7 @@ export function SearchArea({ playerTable, userTable, tagTable }){
                     }else if(prefix == 'user'){
                         setResult(searchUsers(userTable, data));
                     }else if(prefix[0] == 'top'){
-                        setResult(searchTops(playerTable, prefix[1], data));
+                        setResult(searchTops(playerTable, prefix[1], data, ratingTable.getSize()));
                     }else if(prefix == 'tags'){
                         setResult(searchTags(playerTable, tagTable, data));
                     }
